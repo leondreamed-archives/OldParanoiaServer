@@ -4,11 +4,16 @@
     <title>Paranoia</title>
   </head>
   <body>
-    <input type="button" name="Screenshot" />
+    <input type="button" name="Screenshot" onclick="takeScreenshot()" />
     <img id="screenshot" />
     <script src="/socket.io/socket.io.js"></script> 
     <script>
       const socket = io('https://paranoia-server.herokuapp.com/'); 
+
+      function takeScreenshot() {
+        socket.emit('take-screenshot');
+      }
+
       socket.on('took-screenshot', function(result) {
         document.getElementById('screenshot').src = result;
       });
