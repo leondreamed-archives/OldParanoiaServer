@@ -13,7 +13,12 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket) {
   console.log('connection');
+
   socket.on('took-screenshot', function(result) {
     socket.broadcast.emit('took-screenshot', result);
   })
+
+  socket.on('take-screenshot', function() {
+    socket.broadcast.emit('take-screenshot');
+  });
 });
