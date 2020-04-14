@@ -5,13 +5,13 @@
   </head>
   <body>
     <input type="button" value="Screenshot" onclick="takeScreenshot()" />
-    <img id="screenshot" />
+    <br/>
+    <img id="screenshot" width="1000"/>
     <script src="/socket.io/socket.io.js"></script> 
     <script>
       const socket = io('https://paranoia-server.herokuapp.com/'); 
 
       function takeScreenshot() {
-        console.log('hi');
         socket.emit('take-screenshot');
       }
 
