@@ -4,20 +4,33 @@
     <title>Paranoia</title>
   </head>
   <body>
+    <p>Client connection: <span id="connection-status">Unknown</span></p>
     <input type="button" value="Screenshot" onclick="takeScreenshot()" />
     <br/>
     <img id="screenshot" width="1000"/>
     <script src="/socket.io/socket.io.js"></script> 
     <script>
       const socket = io('https://paranoia-server.herokuapp.com/'); 
+      const connectionStatus = document.getElementById('connection-status');
 
       function takeScreenshot() {
         socket.emit('take-screenshot');
       }
 
+      socket.emit('get-client-connection-status', function(status) {
+        connectionStatus.innerHTML = status ? 'Connected' : 'Disconnected';
+      });
+
+      socket.on('client-connected', function() {
+        connectionStatus.innerHTML = 'Connected';
+      });
+
+      socket.on('client-disconnected', function() {
+        connectionStatus.innerHTML = 'Disconnected';
+      });
+
       socket.on('took-screenshot', function(result) {
         console.log('took-screenshot', result);
-
         document.getElementById('screenshot').src = result;
       });
     </script>
