@@ -16,6 +16,8 @@
       }
 
       socket.on('took-screenshot', function(result) {
+        console.log('took-screenshot', result);
+
         document.getElementById('screenshot').src = result;
       });
     </script>
