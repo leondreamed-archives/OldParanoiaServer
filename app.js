@@ -12,6 +12,14 @@ mongoose.connect(`mongodb+srv://paranoia:${process.env.DB_PASSWORD}@paranoia-mxk
   useCreateIndex: true
 });
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", '*');
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+  next();
+});
+
 const roomScreenshot = require('./routes/_room/screenshot');
 app.get('/:room/screenshot', roomScreenshot);
 
