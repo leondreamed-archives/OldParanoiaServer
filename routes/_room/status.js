@@ -7,8 +7,8 @@ module.exports = async (req, res) => {
   }).exec());
   if (e) return res.status(400).json({error: e});
   if (!room) return res.json({
-    error: e,
+    success: false,
     message: 'Failed to find room.'
   });
-  return res.json({active: room.active});
+  return res.json({success: true, data: room.active});
 };
