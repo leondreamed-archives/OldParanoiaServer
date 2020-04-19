@@ -5,7 +5,8 @@ module.exports = async (req, res) => {
   const [e, room] = await to(Room.findOne({
     name: req.params.room
   }).exec());
-  if (e || !room) return res.status(400).json({
+  if (e) return res.status(400).json({error: e});
+  if (!room) return res.json({
     error: e,
     message: 'Failed to find room.'
   });

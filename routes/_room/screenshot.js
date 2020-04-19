@@ -7,11 +7,12 @@ module.exports = async (req, res) => {
   const {room} = req.params;
 
   const [e, dbRoom] = await to(Room.findOne({name: room}));
-  if (e || !dbRoom) return res.status(400).json({
+  if (e) return res.status(400).json({error: e});
+  if (!dbRoom) return res.json({
     message: 'Failed to find room.',
     error: e,
   });
-  if (!dbRoom.active) return res.status(400).json({
+  if (!dbRoom.active) return res.json({
     message: 'User not active.'
   });
   socket.on('connect', () => {
